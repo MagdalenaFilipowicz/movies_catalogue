@@ -6,5 +6,7 @@ app = Flask(__name__)
 def homepage():
     movies = []
     return render_template("homepage.html", movies=movies)
+    response = get_popular_movies()
+    return response
 
 app.run()
