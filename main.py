@@ -6,9 +6,10 @@ app = Flask(__name__)
 
 @app.route('/')
 def homepage():
-    selected_list = request.args.get('list_type', "popular")
+    selected_list = request.args.get("list_type")
+    if selected_list and selected_list not in ["top_rated", "now_playing", "upcoming", "popular"]:
+        return "Error 404"
     movies = tmdb_client.get_movies(how_many=8, list_type=selected_list)
-    response = get_popular_movies()
     return render_template("homepage.html", movies=movies, current_list=selected_list)
 
 @app.context_processor
